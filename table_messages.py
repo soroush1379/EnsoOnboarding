@@ -10,7 +10,7 @@ class table_messages:
 
         table_names = self.client.list_tables()["TableNames"]
         if table_name not in table_names:
-            self.__create_table()
+            self.create_table()
 
         self.table = self.dynamodb.Table(table_name)
 
@@ -23,11 +23,27 @@ class table_messages:
             for message in messages:
                 batch.put_item(Item=message)
 
-        print("Process successful\n")
+        print("Process successful.\n")
 
         return True
 
-    def __create_table(self):
+    def contains(self, message):
+        request = self.table.get_item(
+            Key = {
+            "guest_id": message["guest_id"],
+            "timestamp": message["timestamp"]
+            }
+        )
+
+        return "Item" in list(request.keys())
+
+    def delete(self):
+        print("Deleting table_messages...")
+        self.table.delete()
+        table.wait_until_not_exists()
+        print("Process completed.\n")
+
+    def create_table(self):
         print("table_messages does not exist. Generating the table...")
 
         table = self.dynamodb.create_table(
