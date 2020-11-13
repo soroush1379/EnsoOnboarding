@@ -8,8 +8,8 @@ class SyncAirbnb:
     This class parses messages received from the Airbnb API and synchronizes the airbnb threads with the internal store of messages.
     """
 
-    def __init__(self):
-        self.database = table_messages()
+    def __init__(self, verbosity=False):
+        self.database = table_messages(verbosity)
 
         return
 
@@ -95,7 +95,6 @@ class SyncAirbnb:
 
 
 if __name__ == "__main__":
-    instance = SyncAirbnb()
-    instance(2)
+    instance = SyncAirbnb(verbosity=True)
 
     pass
