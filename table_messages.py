@@ -37,7 +37,7 @@ class table_messages:
 
         return "Item" in list(request.keys())
 
-    def delete(self):
+    def delete_table(self):
         print("Deleting table_messages...")
         self.table.delete()
         table.wait_until_not_exists()

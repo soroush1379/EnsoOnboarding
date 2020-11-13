@@ -96,6 +96,6 @@ class SyncAirbnb:
 
 if __name__ == "__main__":
     instance = SyncAirbnb()
-    instance(1)
+    instance(2)
 
     pass
